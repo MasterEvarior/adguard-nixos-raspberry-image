@@ -20,13 +20,13 @@
     in
     {
       packages.x86_64-linux = {
-        vbox = nixos-generators.nixosGenerate {
+        run-vm = nixos-generators.nixosGenerate {
           modules = [
             ./image/configuration.nix
           ];
 
           system = "x86_64-linux";
-          format = "virtualbox";
+          format = "vm";
         };
       };
     };
