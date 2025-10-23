@@ -22,21 +22,21 @@
     }:
     let
       lib = nixpkgs.lib;
-      configModule = (lib.importTOML tomlConfig);
+      configModule = (
+        {
+          ...
+        }:
+        {
+          _module.args.vmConfig = (lib.importTOML tomlConfig);
+        }
+      );
     in
     {
       packages.x86_64-linux = {
         run-vm = nixos-generators.nixosGenerate {
           modules = [
             ./image/configuration.nix
-            (
-              {
-                ...
-              }:
-              {
-                _module.args.vmConfig = configModule;
-              }
-            )
+            configModule
           ];
 
           system = "x86_64-linux";
