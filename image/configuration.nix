@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  vmConfig,
+  ...
+}:
 {
   imports = [
     ./services
@@ -25,15 +29,15 @@
   ];
 
   # TODO: change this
-  users.users.alice = {
+  users.users.${vmConfig.user.username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    initialPassword = "test123";
+    initialPassword = vmConfig.user.initial_password;
   };
 
   # Networking
   networking = {
-    hostName = "nixos";
+    hostName = vmConfig.machine.hostname;
     networkmanager.enable = true;
   };
 

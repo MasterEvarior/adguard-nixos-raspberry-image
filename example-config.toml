@@ -1,0 +1,7 @@
+[user]
+username = "Stan"
+initial_password = "test123"
+ssh_key = ""
+
+[machine]
+hostname = "addguard-nixos"

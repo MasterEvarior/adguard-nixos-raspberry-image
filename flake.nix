@@ -7,6 +7,10 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    tomlConfig = {
+      url = "path:./example-config.toml";
+      flake = false;
+    };
   };
 
   outputs =
@@ -14,15 +18,25 @@
       self,
       nixpkgs,
       nixos-generators,
+      tomlConfig,
     }:
     let
       lib = nixpkgs.lib;
+      configModule = (lib.importTOML tomlConfig);
     in
     {
       packages.x86_64-linux = {
         run-vm = nixos-generators.nixosGenerate {
           modules = [
             ./image/configuration.nix
+            (
+              {
+                ...
+              }:
+              {
+                _module.args.vmConfig = configModule;
+              }
+            )
           ];
 
           system = "x86_64-linux";
