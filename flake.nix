@@ -40,6 +40,12 @@
         nodeExporter = (import ./image/services/node-exporter.nix);
       };
 
+      devShells.${system}.default = pkgs.mkShellNoCC {
+        packages = with pkgs; [
+          just
+        ];
+      };
+
       packages.${system} = {
         run-vm = nixos-generators.nixosGenerate {
           modules = [
