@@ -1,15 +1,23 @@
-pkgs.testers.runNixOSTest {
+{
+  pkgs,
+  modules ? [ ],
+  ...
+}:
 
+pkgs.testers.runNixOSTest {
   name = "adguard";
 
   nodes = {
 
     server =
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
       {
         imports = [
           ../image/configuration.nix
-        ];
+        ]
+        ++ modules;
+
+        networking.hostName = lib.mkForce "server";
 
         virtualisation.graphics = false;
         environment.systemPackages = [ pkgs.curlMinimal ];
@@ -35,7 +43,7 @@ pkgs.testers.runNixOSTest {
       server.succeed("curl --fail http://127.0.0.1:80 | grep -q '<title>AdGuard Home</title>'")
 
     with subtest("AdGuard Home is reachable from client"):
-      server.succeed("curl --fail http://server:80 | grep -q '<title>AdGuard Home</title>'")
+      client.succeed("curl --fail http://server:80 | grep -q '<title>AdGuard Home</title>'")
   '';
 
 }
