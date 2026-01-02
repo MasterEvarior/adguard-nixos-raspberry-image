@@ -37,6 +37,7 @@
       nixosModules = {
         adguardhome = (import ./image/services/adguard.nix);
         ssh = (import ./image/services/ssh.nix);
+        nodeExporter = (import ./image/services/node-exporter.nix);
       };
 
       packages.${system} = {
@@ -53,6 +54,10 @@
 
       checks.${system} = {
         adguard = import ./tests/adguard.nix {
+          inherit pkgs;
+          modules = [ configModule ];
+        };
+        node-exporter = import ./tests/node-exporter.nix {
           inherit pkgs;
           modules = [ configModule ];
         };
