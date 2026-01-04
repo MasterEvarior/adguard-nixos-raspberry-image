@@ -1,4 +1,11 @@
-{ ... }:
+{ lib, vmConfig, ... }:
+let
+  processedFilters = lib.imap1 (index: value: {
+    inherit (value) name url;
+    id = index;
+    enabled = true;
+  }) vmConfig.filters;
+in
 {
   services.adguardhome = {
     enable = true;
@@ -15,6 +22,7 @@
       statistics.enabled = true;
       dhcp.enabled = false;
       anonymize_client_ip = true;
+      filters = processedFilters;
     };
   };
 

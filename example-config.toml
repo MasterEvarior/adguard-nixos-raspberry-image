@@ -5,3 +5,11 @@ ssh_key = ""
 
 [machine]
 hostname = "adguard"
+
+[[filters]]
+name = "URL House"
+url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt"
+
+[[filters]]
+name = "AdAway Default Blocklist"
+url = "https://adaway.org/hosts.txt"
