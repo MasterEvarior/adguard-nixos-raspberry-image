@@ -90,11 +90,11 @@
       };
 
       checks.${system} = {
-        adguard = import ./tests/adguard.nix {
+        adguard = import ./tests/adguard {
           inherit pkgs;
           modules = [ configModule ];
         };
-        node-exporter = import ./tests/node-exporter.nix {
+        node-exporter = import ./tests/node-exporter {
           inherit pkgs;
           modules = [ configModule ];
         };
