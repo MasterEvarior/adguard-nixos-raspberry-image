@@ -63,6 +63,7 @@
         packages = with pkgs; [
           just
           coreutils # provides dd
+          curl
         ];
       };
 
