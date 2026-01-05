@@ -7,6 +7,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix.url = "github:numtide/treefmt-nix";
     tomlConfig = {
       url = "path:./example-config.toml";
       flake = false;
@@ -18,20 +19,21 @@
       self,
       nixpkgs,
       nixos-generators,
+      treefmt-nix,
       tomlConfig,
     }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      configModule = (
+      treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      configModule =
         {
           ...
         }:
         {
           _module.args.vmConfig = (lib.importTOML tomlConfig);
-        }
-      );
+        };
       portForwardModule = (
         { ... }:
         {
@@ -94,12 +96,15 @@
           inherit pkgs;
           modules = [ configModule ];
         };
+
         node-exporter = import ./tests/node-exporter {
           inherit pkgs;
           modules = [ configModule ];
         };
+
+        formatting = treefmtEval.config.build.check self;
       };
 
-      formatter.${system} = pkgs.nixfmt-rfc-style;
+      formatter.${system} = treefmtEval.config.build.wrapper;
     };
 }
