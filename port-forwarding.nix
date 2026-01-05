@@ -1,17 +1,20 @@
 { ... }:
+
+let
+  mkSameForward = port: (mkForward port port);
+  mkForward = hostPort: guestPort: {
+    from = "host";
+    host = {
+      address = "127.0.0.1";
+      port = hostPort;
+    };
+    guest.port = guestPort;
+  };
+in
 {
   virtualisation.forwardPorts = [
-    {
-      from = "host";
-      host.address = "127.0.0.1";
-      host.port = 8080;
-      guest.port = 80;
-    }
-    {
-      from = "host";
-      host.address = "127.0.0.1";
-      host.port = 9100;
-      guest.port = 9100;
-    }
+    (mkForward 2222 22) # SSH
+    (mkForward 8080 80) # AdGuard
+    (mkSameForward 9100) # Node Exporter
   ];
 }
