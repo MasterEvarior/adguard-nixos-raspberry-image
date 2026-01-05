@@ -9,6 +9,13 @@ run-vm:
 	nix build .#run-vm
 	./result/bin/run-adguard-vm
 
+alias lint := format
+alias f := format
+[doc('Run all formatters')]
+[group('run')]
+format:
+	nix fmt
+
 alias b := build-image
 [doc('Build SD image')]
 [group('build')]
@@ -26,8 +33,3 @@ test-all:
 test name arch="x86_64-linux":
 	echo "Running test {{name}} for {{arch}}"
 	nix run .#checks.{{arch}}.{{name}}.driver
-
-[doc('Run linter(s)')]
-[group('lint')]
-lint:
-	nix fmt
