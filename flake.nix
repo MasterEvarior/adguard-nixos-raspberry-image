@@ -83,6 +83,11 @@
           modules = [ configModule ];
         };
 
+        ssh = import ./tests/ssh {
+          inherit pkgs;
+          modules = [ configModule ];
+        };
+
         formatting = treefmtEval.config.build.check self;
       };
 

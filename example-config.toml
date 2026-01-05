@@ -12,4 +12,4 @@ hostname = "adguard"
 [user]
 username = "stan"
 initial_password = "test123"
-ssh_key = ""
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGSbN9/0OEdgUhNxuq+zLspbK6bd+HyDVdlfOO7O+toW noname"

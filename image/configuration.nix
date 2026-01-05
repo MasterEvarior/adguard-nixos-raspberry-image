@@ -22,6 +22,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     initialPassword = vmConfig.user.initial_password;
+    openssh.authorizedKeys.keys = [ vmConfig.user.ssh_key ];
   };
 
   # Networking
