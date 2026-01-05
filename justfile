@@ -16,6 +16,12 @@ alias f := format
 format:
 	nix fmt
 
+alias c := clean
+[doc('Clean current output and temp files')]
+[group('run')]
+clean:
+	rm -rf ./result && rm -f adguard.qcow2
+
 alias b := build-image
 [doc('Build SD image')]
 [group('build')]
