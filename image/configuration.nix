@@ -3,6 +3,9 @@
   vmConfig,
   ...
 }:
+let
+  initialPassword = if vmConfig.user.no_password then null else vmConfig.user.initial_password;
+in
 {
   imports = [
     ./services
@@ -19,9 +22,9 @@
   ];
 
   users.users.${vmConfig.user.username} = {
+    inherit initialPassword;
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    initialPassword = vmConfig.user.initial_password;
     openssh.authorizedKeys.keys = [ vmConfig.user.ssh_key ];
   };
 
