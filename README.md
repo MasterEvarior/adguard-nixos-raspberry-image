@@ -4,26 +4,28 @@ A custom, reproducible NixOS image builder for Raspberry Pi (AArch64) pre-config
 
 This project uses **Nix Flakes** and **NixOS Generators** to create ready-to-flash SD card images defined entirely by code and a simple TOML configuration file.
 
-
 ## Features & Services
 
 The image comes pre-loaded with the following services. Configuration is handled automatically via the build process.
 
 ### AdGuard Home
+
 - **Port:** `80` (Web Interface), `53` (DNS)
 - **Description:** Network-wide software for blocking ads and tracking.
 - **Configuration:**
-    - Pre-configured with blocklists defined in `config.toml`
-    - Anonymized client IPs by default
-    - DHCP disabled (can be enabled in UI)
-    - Mutable settings: You can change settings in the UI after flashing, and they will persist
+  - Pre-configured with blocklists defined in `config.toml`
+  - Anonymized client IPs by default
+  - DHCP disabled (can be enabled in UI)
+  - Mutable settings: You can change settings in the UI after flashing, and they will persist
 
 ### Node Exporter (Prometheus)
+
 - **Port:** `9100`
 - **Description:** Exposes hardware and OS metrics (CPU, RAM, Disk) for Prometheus
 - **Note:** The endpoint is exposed on the local network without authentication
 
 ### SSH
+
 - **Port:** `22`
 - **Authentication:** Public Key only. Password authentication is disabled for security reasons
 - **User:** Defined in the configuration file
@@ -38,27 +40,31 @@ cp example-config.toml config.toml
 
 ### Configuration Options
 
-`[machine]`  
+`[machine]`
+
 - `hostname`: The network hostname for the Pi
 
 `[user]`
+
 - `username`: The name of the primary user account
 - `no_password`: Set to true to disable password login entirely (recommended)
 - `ssh_key`: Required. Your public SSH key (e.g., contents of ~/.ssh/id_ed25519.pub)
 
 `[[filters]]`
+
 - `name`: Display name in AdGuard
 - `url`: The URL to the hosts or blocklist file
 
 You can define multiple blocklists. These are downloaded by AdGuard on the first boot.The AdGuard configuration is mutable, so can be changed after the deployment via the GUI.
 
 ## Usage & Building
+
 This project uses just as a command runner.
 Prerequisites
+
 - Nix installed with Flakes enabled
 - Just (optional, but makes commands easier)
-- Direnv (optiona, but makes life easier)  
-
+- Direnv (optiona, but makes life easier)
 
 ### 1. Build the SD Image
 
@@ -75,8 +81,8 @@ This will produce a `.img` file in `result/sd-image`.
 
 You can use tools like Belana Etcher, rpi-imager or standard dd:
 
-> [!CAUTION]  
-> Be CAREFUL with dd. It can destroy your entire installation.  
+> [!CAUTION]\
+> Be CAREFUL with dd. It can destroy your entire installation.\
 > Replace /dev/sdX with your actual SD card device.
 
 ```shell
@@ -95,6 +101,7 @@ just run-vm
 ```
 
 Port Forwarding: When running in the VM, ports are mapped to your host machine:
+
 - AdGuard Web: https://www.google.com/search?q=http://127.0.0.1:8080
 - Node Exporter: https://www.google.com/search?q=http://127.0.0.1:9100
 - SSH: `ssh -p 2222 <user>@127.0.0.1`
