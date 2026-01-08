@@ -47,7 +47,7 @@ build-image config_path=default_config: clean
 [doc('Run all available tests')]
 [group('test')]
 test-all:
-	nix flake check
+	nix flake check -L
 
 [doc('Run a specific test')]
 [group('test')]
