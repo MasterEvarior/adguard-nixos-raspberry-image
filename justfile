@@ -1,3 +1,6 @@
+is_ci := env_var_or_default("CI", "false")
+flags := if is_ci == "true" { "--impure" } else { "" }
+
 [doc('List all available recipes')]
 default:
     just --list
@@ -14,7 +17,7 @@ alias f := format
 [doc('Run all formatters')]
 [group('run')]
 format:
-	nix fmt
+	nix fmt {{flags}}
 
 alias c := clean
 [doc('Remove file that stores the state of the VM')]
@@ -47,7 +50,7 @@ build-image config_path=default_config: clean
 [doc('Run all available tests')]
 [group('test')]
 test-all:
-	nix flake check -L
+	nix flake check {{flags}} -L
 
 [doc('Run a specific test')]
 [group('test')]
