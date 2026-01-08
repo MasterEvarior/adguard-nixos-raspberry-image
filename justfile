@@ -17,17 +17,32 @@ format:
 	nix fmt
 
 alias c := clean
-[doc('Clean current output and temp files')]
+[doc('Remove file that stores the state of the VM')]
 [group('run')]
 clean:
-	rm -rf ./result && rm -f adguard.qcow2
+	echo "Removing file that stores the state of the VM"
+	rm -f adguard.qcow2
 
-alias b := build-image
+default_config := "config.toml"
 [doc('Build SD image')]
 [group('build')]
-build-image:
-	rm -rf ./result && rm -f adguard.qcow2
-	nix build .#sd-image
+build-image config_path=default_config: clean
+    #!/usr/bin/env bash
+    set -e
+    
+    if [ ! -f "{{ config_path }}" ]; then
+        echo "Error: Configuration file '{{ config_path }}' not found."
+        exit 1
+    fi
+
+    ABS_PATH=$(realpath "{{ config_path }}")
+    LINK_NAME="result-$(basename "{{ config_path }}" .toml)"
+
+    echo "Building SD Image..."
+    echo "Config: $ABS_PATH"
+
+    nix build .#sd-image \
+        --override-input tomlConfig "path:$ABS_PATH"
 
 [doc('Run all available tests')]
 [group('test')]
