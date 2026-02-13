@@ -8,10 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     treefmt-nix.url = "github:numtide/treefmt-nix";
-    tomlConfig = {
-      url = "path:./example-config.toml";
-      flake = false;
-    };
   };
 
   outputs =
@@ -20,20 +16,14 @@
       nixpkgs,
       nixos-generators,
       treefmt-nix,
-      tomlConfig,
     }:
     let
-      lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-      configModule =
-        {
-          ...
-        }:
-        {
-          _module.args.vmConfig = (lib.importTOML tomlConfig);
-        };
+      configModule = {
+        _module.args.vmConfig = (import ./settings.nix);
+      };
     in
     {
       nixosModules = {

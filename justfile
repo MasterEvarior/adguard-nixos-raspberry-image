@@ -29,23 +29,9 @@ clean:
 default_config := "config.toml"
 [doc('Build SD image')]
 [group('build')]
-build-image config_path=default_config: clean
-    #!/usr/bin/env bash
-    set -e
-    
-    if [ ! -f "{{ config_path }}" ]; then
-        echo "Error: Configuration file '{{ config_path }}' not found."
-        exit 1
-    fi
-
-    ABS_PATH=$(realpath "{{ config_path }}")
-    LINK_NAME="result-$(basename "{{ config_path }}" .toml)"
-
+build-image: clean
     echo "Building SD Image..."
-    echo "Config: $ABS_PATH"
-
-    nix build .#sd-image \
-        --override-input tomlConfig "path:$ABS_PATH"
+    nix build .#sd-image
 
 [doc('Run all available tests')]
 [group('test')]

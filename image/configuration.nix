@@ -4,7 +4,7 @@
   ...
 }:
 let
-  initialPassword = if vmConfig.user.no_password then null else vmConfig.user.initial_password;
+  initialPassword = if vmConfig.user.noPassword then null else vmConfig.user.initialPassword;
 in
 {
   imports = [
@@ -25,7 +25,7 @@ in
     inherit initialPassword;
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [ vmConfig.user.ssh_key ];
+    openssh.authorizedKeys.keys = [ vmConfig.user.sshKey ];
   };
 
   # Networking
