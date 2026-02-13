@@ -1,6 +1,3 @@
-is_ci := env_var_or_default("CI", "false")
-flags := if is_ci == "true" { "--impure" } else { "" }
-
 [doc('List all available recipes')]
 default:
     just --list
@@ -17,7 +14,7 @@ alias f := format
 [doc('Run all formatters')]
 [group('run')]
 format:
-	nix fmt {{flags}}
+	nix fmt
 
 alias c := clean
 [doc('Remove file that stores the state of the VM')]
@@ -26,7 +23,6 @@ clean:
 	echo "Removing file that stores the state of the VM"
 	rm -f adguard.qcow2
 
-default_config := "config.toml"
 [doc('Build SD image')]
 [group('build')]
 build-image: clean
@@ -36,7 +32,7 @@ build-image: clean
 [doc('Run all available tests')]
 [group('test')]
 test-all:
-	nix flake check {{flags}} -L
+	nix flake check -L
 
 [doc('Run a specific test')]
 [group('test')]
