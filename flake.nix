@@ -20,6 +20,10 @@
       configModule = {
         _module.args.imageConfig = (import ./settings.nix);
       };
+      baseModules = [
+        configModule
+        ./image/configuration.nix
+      ];
     in
     {
       nixosModules = {
@@ -39,19 +43,15 @@
       nixosConfigurations = {
         adguard-pi = lib.nixosSystem {
           system = "aarch64-linux";
-          modules = [
-            ./image/configuration.nix
-            configModule
+          modules = baseModules ++ [
+            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
           ];
         };
         test-vm = lib.nixosSystem {
           inherit system;
-          modules = [
+          modules = baseModules ++ [
             "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
             ./port-forwarding.nix
-
-            ./image/configuration.nix
-            configModule
           ];
         };
       };
@@ -60,6 +60,7 @@
         default = self.apps.${system}.test-vm;
         test-vm = {
           type = "app";
+          meta.description = "Start a small VM to make debugging/testing easier";
           program = "${self.outputs.nixosConfigurations.test-vm.config.system.build.vm}/bin/run-adguard-vm";
         };
       };
@@ -67,17 +68,23 @@
       checks.${system} = {
         adguard = import ./tests/adguard {
           inherit pkgs;
-          modules = [ configModule ];
+          modules = [
+            configModule
+          ];
         };
 
         node-exporter = import ./tests/node-exporter {
           inherit pkgs;
-          modules = [ configModule ];
+          modules = [
+            configModule
+          ];
         };
 
         ssh = import ./tests/ssh {
           inherit pkgs;
-          modules = [ configModule ];
+          modules = [
+            configModule
+          ];
         };
 
         formatting = treefmtEval.config.build.check self;
