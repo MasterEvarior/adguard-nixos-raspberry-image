@@ -5,9 +5,7 @@ default:
 [doc('Start an interactive VM to debug and test')]
 [group('run')]
 run-vm:
-	rm -rf ./result && rm -f adguard.qcow2
-	nix build .#run-vm
-	./result/bin/run-adguard-vm
+	QEMU_OPTS="-snapshot" nix run .#test-vm
 
 alias lint := format
 alias f := format
@@ -27,7 +25,7 @@ clean:
 [group('build')]
 build-image: clean
     echo "Building SD Image..."
-    nix build .#sd-image
+    nixos-rebuild build-image --image-variant sd-card .#adguard-pi
 
 [doc('Run all available tests')]
 [group('test')]

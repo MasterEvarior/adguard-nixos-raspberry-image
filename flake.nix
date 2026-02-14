@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05";
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
@@ -14,10 +10,10 @@
     {
       self,
       nixpkgs,
-      nixos-generators,
       treefmt-nix,
     }:
     let
+      lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
@@ -40,25 +36,31 @@
         ];
       };
 
-      packages.${system} = {
-        run-vm = nixos-generators.nixosGenerate {
-          modules = [
-            ./image/configuration.nix
-            ./port-forwarding.nix
-            configModule
-          ];
-
-          system = system;
-          format = "vm";
-        };
-
-        sd-image = nixos-generators.nixosGenerate {
-          modules = [
-            ./image/configuration.nix
-            configModule
-          ];
+      nixosConfigurations = {
+        adguard-pi = lib.nixosSystem {
           system = "aarch64-linux";
-          format = "sd-aarch64";
+          modules = [
+            ./image/configuration.nix
+            configModule
+          ];
+        };
+        test-vm = lib.nixosSystem {
+          inherit system;
+          modules = [
+            "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+            ./port-forwarding.nix
+
+            ./image/configuration.nix
+            configModule
+          ];
+        };
+      };
+
+      apps.${system} = {
+        default = self.apps.${system}.test-vm;
+        test-vm = {
+          type = "app";
+          program = "${self.outputs.nixosConfigurations.test-vm.config.system.build.vm}/bin/run-adguard-vm";
         };
       };
 
