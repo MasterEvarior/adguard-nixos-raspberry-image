@@ -4,12 +4,12 @@ let
     inherit (value) name url;
     id = index;
     enabled = true;
-  }) imageConfig.filters;
+  }) imageConfig.adguard.filters;
 in
 {
   options = {
     filters = lib.mkOption {
-      default = imageConfig.filters;
+      default = imageConfig.adguard.filters;
       example = {
         name = "AdAway Blocklist";
         url = "https://adaway.org/hosts.txt";
