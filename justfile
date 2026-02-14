@@ -7,6 +7,12 @@ default:
 run-vm:
 	QEMU_OPTS="-snapshot" nix run .#test-vm
 
+[doc('Connect to the interactive debug/test VM via SSH')]
+[group('run')]
+connect-vm user="stan" port="2222":
+	@echo "Connecting via SSH with user {{user}} on port {{port}}"
+	ssh {{user}}@127.0.0.1 -p {{port}}
+
 alias lint := format
 alias f := format
 [doc('Run all formatters')]
