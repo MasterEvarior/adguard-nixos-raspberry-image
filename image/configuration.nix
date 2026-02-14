@@ -1,10 +1,10 @@
 {
   pkgs,
-  vmConfig,
+  imageConfig,
   ...
 }:
 let
-  initialPassword = if vmConfig.user.noPassword then null else vmConfig.user.initialPassword;
+  initialPassword = if imageConfig.user.noPassword then null else imageConfig.user.initialPassword;
 in
 {
   imports = [
@@ -21,16 +21,16 @@ in
     micro
   ];
 
-  users.users.${vmConfig.user.username} = {
+  users.users.${imageConfig.user.username} = {
     inherit initialPassword;
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [ vmConfig.user.sshKey ];
+    openssh.authorizedKeys.keys = [ imageConfig.user.sshKey ];
   };
 
   # Networking
   networking = {
-    hostName = vmConfig.machine.hostname;
+    hostName = imageConfig.machine.hostname;
     networkmanager.enable = true;
   };
 

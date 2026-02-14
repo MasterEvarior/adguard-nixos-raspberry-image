@@ -1,15 +1,15 @@
-{ lib, vmConfig, ... }:
+{ lib, imageConfig, ... }:
 let
   processedFilters = lib.imap1 (index: value: {
     inherit (value) name url;
     id = index;
     enabled = true;
-  }) vmConfig.filters;
+  }) imageConfig.filters;
 in
 {
   options = {
     filters = lib.mkOption {
-      default = vmConfig.filters;
+      default = imageConfig.filters;
       example = {
         name = "AdAway Blocklist";
         url = "https://adaway.org/hosts.txt";
