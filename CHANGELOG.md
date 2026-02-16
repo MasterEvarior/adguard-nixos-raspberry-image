@@ -1,0 +1,74 @@
+## [0.1.0] - 2026-02-16
+
+### 🚀 Features
+
+- Add adguard and some settings into a modular structure
+- Add a rudimentary config process
+- Customize agh a bit more
+- Add node exporter service
+- Add just as a commandline runner to make life easier
+- Add package to build sd image
+- Add possibility to add filters to adguard
+- Add working SSH service with tests
+- Add possibility to remove password from the user
+- Add possibility to use custom config
+- Make SSH debugging work
+
+### 🐛 Bug Fixes
+
+- Make tests and image build work both at the same time
+
+### 🚜 Refactor
+
+- Mode config module into a let definition
+- Move port forwarding to a separate module
+- Add helper function for port forwarding
+- Remove TOML config
+- Rename vmConfig
+- Move adguard settings into a separate set
+- Remove dependency on deprecated nix-generators
+- Add base modules
+
+### 📚 Documentation
+
+- Add more references to README.md
+- Add some basic content to the README.md
+- Improve README.md
+- Remove references to TOML file, add maintenance section
+- Remove unused file
+
+### 🧪 Testing
+
+- Move test to separate file
+- Add tests for AdGuard filters
+- Move test scripts to python files
+- Add -L flag to test execution
+- Fix ssh test
+
+### ⚙️ Miscellaneous Tasks
+
+- Init project
+- Add .gitignore
+- Add more files to .gitignore
+- Do stuff
+- Add treefmt
+- Run formatter
+- Add formatter into justfile
+- Add just command to clean output
+- Add linting and tests action
+- Add renovate config
+- Format files
+- Add YAML linter
+- Add --impure fix for CI
+- Add TODOs
+- Format files
+- Remove impure evalution from ci
+- Update TODOs
+- Add command to connect via SSH
+- Remove magic nix cache
+- *(just)* Add update command
+- *(just)* Replace echo with @echo
+- Add renovate config
+- *(just)* Add command to check linting
+- Use correct lint command in workflow
+- Add basic release management
