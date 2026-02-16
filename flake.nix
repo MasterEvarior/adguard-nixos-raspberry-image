@@ -37,6 +37,9 @@
           just
           coreutils # provides dd
           curl
+
+          # Releases
+          git-cliff
         ];
       };
 

@@ -1,0 +1,3 @@
+[git]
+conventional_commits = true
+require_conventional = true

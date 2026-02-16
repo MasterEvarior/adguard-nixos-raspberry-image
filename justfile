@@ -49,6 +49,16 @@ update:
     git add flake.lock
     git commit -m "chore(deps): update flake.lock"
 
+alias r := release
+[doc('Create a new release')]
+[group('maintenance')]
+release:
+	git reset
+	git cliff -o CHANGELOG.md --bump --unreleased
+	git add CHANGELOG.md
+	git commit -m "chore(release): create new release"
+	@echo "DO NOT FORGET TO SET THE CORRECT TAG!"
+
 [doc('Run all available tests')]
 [group('test')]
 test-all:
