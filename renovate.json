@@ -1,0 +1,14 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended",
+        ":rebaseStalePrs",
+        ":semanticCommitTypeAll(chore)"
+    ],
+    "reviewers": [
+        "MasterEvarior"
+    ],
+    "nix": {
+        "enabled": true
+    }
+}
