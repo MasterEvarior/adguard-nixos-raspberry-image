@@ -23,14 +23,14 @@ format:
 [doc('Build SD image')]
 [group('build')]
 build-image: clean
-    echo "Building SD Image..."
+    @echo "Building SD Image..."
     nixos-rebuild build-image --image-variant sd-card .#adguard-pi
 
 alias c := clean
 [doc('Remove file that stores the state of the VM')]
 [group('maintenance')]
 clean:
-	echo "Removing file that stores the state of the VM"
+	@echo "Removing file that stores the state of the VM"
 	rm -f adguard.qcow2
 
 alias u := update
@@ -38,9 +38,9 @@ alias u := update
 [group('maintenance')]
 update:
     nix flake update
-    echo "Running tests to check whether update works..."
+    @echo "Running tests to check whether update works..."
     just test-all
-    echo "Tests passed. Committing changes..."
+    @echo "Tests passed. Committing changes..."
     git add flake.lock
     git commit -m "chore(deps): update flake.lock"
 
@@ -52,5 +52,5 @@ test-all:
 [doc('Run a specific test')]
 [group('test')]
 test name arch="x86_64-linux":
-	echo "Running test {{name}} for {{arch}}"
+	@echo "Running test {{name}} for {{arch}}"
 	nix run .#checks.{{arch}}.{{name}}.driver
