@@ -29,7 +29,7 @@ format-check:
 [group('build')]
 build-image: clean
     @echo "Building SD Image..."
-    nixos-rebuild build-image --image-variant sd-card --flake .#adguard-pi
+    nix build .#nixosConfigurations.adguard-pi.config.system.build.sdImage
 
 alias c := clean
 [doc('Remove file that stores the state of the VM')]
