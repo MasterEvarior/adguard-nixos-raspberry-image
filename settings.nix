@@ -20,6 +20,6 @@
     username = "stan";
     noPassword = true;
     initialPassword = "test123";
-    sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGSbN9/0OEdgUhNxuq+zLspbK6bd+HyDVdlfOO7O+toW noname";
+    sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHgX2NzC50UtAF/0/AGWSY2x3EvunwPQ5kHiVkQzyMVN noname";
   };
 }

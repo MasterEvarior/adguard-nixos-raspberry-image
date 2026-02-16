@@ -11,7 +11,7 @@ run-vm:
 [group('run')]
 connect-vm user="stan" port="2222":
 	@echo "Connecting via SSH with user {{user}} on port {{port}}"
-	ssh {{user}}@127.0.0.1 -p {{port}}
+	ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o IdentityAgent=none -i {{justfile_directory()}}/private_example_key -p {{port}} {{user}}@127.0.0.1
 
 alias lint := format
 alias f := format
