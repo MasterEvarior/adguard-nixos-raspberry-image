@@ -1,5 +1,0 @@
-- [x] Rename `vmConfig`
-- [x] Update to 25.11
-- [x] Remove `nix-generators`
-- [ ] Update readme
-- [ ] Fix CI
