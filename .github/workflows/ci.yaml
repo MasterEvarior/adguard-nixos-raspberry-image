@@ -32,3 +32,14 @@ jobs:
           extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
       - name: Run All Tests and Checks
         run: nix develop --command just test-all
+  test-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31.9.0
+      - name: Build the image
+        run: nix develop --command just build-image
