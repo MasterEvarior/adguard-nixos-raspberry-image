@@ -2,7 +2,7 @@
 
 A custom, reproducible NixOS image builder for Raspberry Pi (AArch64) pre-configured with AdGuard Home, Prometheus Node Exporter and SSH.
 
-This project uses **Nix Flakes** and **NixOS Generators** to create ready-to-flash SD card images defined entirely by code and a simple TOML configuration file.
+This project uses **Nix Flakes** and **NixOS Generators** to create ready-to-flash SD card images defined entirely by code and a simple `.nix` configuration file.
 
 ## Features & Services
 
@@ -13,7 +13,7 @@ The image comes pre-loaded with the following services. Configuration is handled
 - **Port:** `80` (Web Interface), `53` (DNS)
 - **Description:** Network-wide software for blocking ads and tracking.
 - **Configuration:**
-  - Pre-configured with blocklists defined in `config.toml`
+  - Pre-configured with blocklists defined in `settings.nix`
   - Anonymized client IPs by default
   - DHCP disabled (can be enabled in UI)
   - Mutable settings: You can change settings in the UI after flashing, and they will persist
@@ -22,57 +22,47 @@ The image comes pre-loaded with the following services. Configuration is handled
 
 - **Port:** `9100`
 - **Description:** Exposes hardware and OS metrics (CPU, RAM, Disk) for Prometheus
-- **Note:** The endpoint is exposed on the local network without authentication
+- **Note:** The endpoint is exposed on the local network without authentication!
 
 ### SSH
 
 - **Port:** `22`
 - **Authentication:** Public Key only. Password authentication is disabled for security reasons
-- **User:** Defined in the configuration file
+- **User:** Defined in the `settings.nix` file
 
 ## Configuration
 
-The entire image is configured using a TOML file. You can copy the example to get started:
+The entire image is configured using the `settings.nix` file. You can copy the example to get started:
 
-```bash
-cp example-config.toml config.toml
-```
 
 ### Configuration Options
 
-`[machine]`
+- `machine.hostname`: The network hostname for the Pi
+- `user.username`: The name of the primary user account
+- `user.no_password`: Set to true to disable password login entirely (recommended)`
+- `user.ssh_key`: Required. Your public SSH key (e.g. contents of `~/.ssh/id_ed25519.pub`)
+- `adguard.filters.<entry>.name`: Display name in AdGuard
+- `adguard.filters.<entry>.url`: The URL to the hosts or blocklist file
 
-- `hostname`: The network hostname for the Pi
-
-`[user]`
-
-- `username`: The name of the primary user account
-- `no_password`: Set to true to disable password login entirely (recommended)
-- `ssh_key`: Required. Your public SSH key (e.g., contents of ~/.ssh/id_ed25519.pub)
-
-`[[filters]]`
-
-- `name`: Display name in AdGuard
-- `url`: The URL to the hosts or blocklist file
-
-You can define multiple blocklists. These are downloaded by AdGuard on the first boot.The AdGuard configuration is mutable, so can be changed after the deployment via the GUI.
+You can define multiple blocklists. These are downloaded by AdGuard on the first boot.The AdGuard configuration is mutable, so it can be changed after the deployment via the GUI.
 
 ## Usage & Building
 
-This project uses just as a command runner.
+This project uses [just](https://github.com/casey/just) as a command runner.
 Prerequisites
 
 - Nix installed with Flakes enabled
 - Just (optional, but makes commands easier)
 - Direnv (optiona, but makes life easier)
 
+Run `just` to see all available commands.
+
 ### 1. Build the SD Image
 
 To build the actual `.img` file for a Raspberry Pi (AArch64), run:
 
-```
-# syntax: just build-image <path-to-your-config.toml>
-just build-image my-config.toml
+```shell
+just build-image
 ```
 
 This will produce a `.img` file in `result/sd-image`.
@@ -108,6 +98,14 @@ Port Forwarding: When running in the VM, ports are mapped to your host machine:
 
 The port-forwarding can be configured in the `port-forwarding.nix` file.
 
+You can connect to the VM over SSH using this command:
+```shell
+just connect-vm
+
+# or with a custom user and port
+just connect myuser 1234
+```
+
 ### Tests
 
 This project includes NixOS integration tests to ensure services start correctly.
@@ -129,6 +127,19 @@ This project includes linting with treefmt.
 ```shell
 just format
 ```
+
+## Maintenance
+
+To update the `flake.lock`file, execute the following command:
+
+```shell
+just update
+```
+
+This will:
+- Update the `flake.lock` file
+- Run all tests
+- Create a new commit if the tests where successful
 
 ## References
 
