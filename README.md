@@ -34,12 +34,11 @@ The image comes pre-loaded with the following services. Configuration is handled
 
 The entire image is configured using the `settings.nix` file. You can copy the example to get started:
 
-
 ### Configuration Options
 
 - `machine.hostname`: The network hostname for the Pi
 - `user.username`: The name of the primary user account
-- `user.no_password`: Set to true to disable password login entirely (recommended)`
+- `user.no_password`: Set to true to disable password login entirely (recommended)\`
 - `user.ssh_key`: Required. Your public SSH key (e.g. contents of `~/.ssh/id_ed25519.pub`)
 - `adguard.filters.<entry>.name`: Display name in AdGuard
 - `adguard.filters.<entry>.url`: The URL to the hosts or blocklist file
@@ -99,6 +98,7 @@ Port Forwarding: When running in the VM, ports are mapped to your host machine:
 The port-forwarding can be configured in the `port-forwarding.nix` file.
 
 You can connect to the VM over SSH using this command:
+
 ```shell
 just connect-vm
 
@@ -137,6 +137,7 @@ just update
 ```
 
 This will:
+
 - Update the `flake.lock` file
 - Run all tests
 - Create a new commit if the tests where successful

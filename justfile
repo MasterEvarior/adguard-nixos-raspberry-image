@@ -16,9 +16,14 @@ connect-vm user="stan" port="2222":
 alias lint := format
 alias f := format
 [doc('Run all formatters')]
-[group('run')]
+[group('lint')]
 format:
 	nix fmt
+
+[doc('Check formatting')]
+[group('lint')]
+format-check:
+	nix fmt -- --fail-on-change
 
 [doc('Build SD image')]
 [group('build')]
