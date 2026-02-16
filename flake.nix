@@ -44,7 +44,7 @@
         adguard-pi = lib.nixosSystem {
           system = "aarch64-linux";
           modules = baseModules ++ [
-            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+            #"${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
           ];
         };
         test-vm = lib.nixosSystem {

@@ -10,7 +10,12 @@ pkgs.testers.runNixOSTest {
   nodes = {
 
     server =
-      { pkgs, lib, ... }:
+      {
+        pkgs,
+        lib,
+        imageConfig,
+        ...
+      }:
       {
         imports = [
           ../../image/configuration.nix
@@ -23,6 +28,11 @@ pkgs.testers.runNixOSTest {
         environment.systemPackages = [
           pkgs.curlMinimal
           pkgs.netcat
+        ];
+
+        # Override the public key of the user for the test
+        users.users.${imageConfig.user.username}.openssh.authorizedKeys.keys = lib.mkForce [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM9BiQKu8SmL8zn+9Js1irnjbEXjhFuDnqppRjllJXjv noname"
         ];
       };
 
