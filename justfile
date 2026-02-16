@@ -20,18 +20,29 @@ alias f := format
 format:
 	nix fmt
 
-alias c := clean
-[doc('Remove file that stores the state of the VM')]
-[group('run')]
-clean:
-	echo "Removing file that stores the state of the VM"
-	rm -f adguard.qcow2
-
 [doc('Build SD image')]
 [group('build')]
 build-image: clean
     echo "Building SD Image..."
     nixos-rebuild build-image --image-variant sd-card .#adguard-pi
+
+alias c := clean
+[doc('Remove file that stores the state of the VM')]
+[group('maintenance')]
+clean:
+	echo "Removing file that stores the state of the VM"
+	rm -f adguard.qcow2
+
+alias u := update
+[doc('Update flake')]
+[group('maintenance')]
+update:
+    nix flake update
+    echo "Running tests to check whether update works..."
+    just test-all
+    echo "Tests passed. Committing changes..."
+    git add flake.lock
+    git commit -m "chore(deps): update flake.lock"
 
 [doc('Run all available tests')]
 [group('test')]
