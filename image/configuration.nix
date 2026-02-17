@@ -12,6 +12,8 @@ in
     ./settings
   ];
 
+  sdImage.compressImage = false;
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
