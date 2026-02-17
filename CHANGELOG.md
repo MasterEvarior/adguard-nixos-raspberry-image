@@ -1,3 +1,15 @@
+## [0.1.1] - 2026-02-17
+
+### ⚙️ Miscellaneous Tasks
+
+- Run formatter
+- Add test to check wether the image still builds
+- Add deadnix
+- Add QEMU binaries and aarch64-linux platform
+- Only run intensive jobs after lint passes
+- Add names to jobs
+- *(just)* Fix release command
+
 ## [0.1.0] - 2026-02-16
 
 ### 🚀 Features
