@@ -40,6 +40,7 @@
 
           # Releases
           git-cliff
+          jq
         ];
       };
 

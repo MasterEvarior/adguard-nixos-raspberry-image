@@ -53,11 +53,21 @@ alias r := release
 [doc('Create a new release')]
 [group('maintenance')]
 release:
+	#!/usr/bin/env bash
+	set -e
+
+	NEW_TAG=$(git cliff --context --bump --unreleased | jq -r '.[0].version')
+
+	echo "Preparing release for $NEW_TAG..."
+
 	git reset
-	git cliff -o CHANGELOG.md --bump --unreleased
+	git cliff --prepend CHANGELOG.md --bump --unreleased
+	just format
 	git add CHANGELOG.md
 	git commit -m "chore(release): create new release"
-	@echo "DO NOT FORGET TO SET THE CORRECT TAG!"
+	git tag "$NEW_TAG"
+
+	echo "You can now run git push && git push --tags"
 
 [doc('Run all available tests')]
 [group('test')]
