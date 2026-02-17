@@ -39,7 +39,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
       - name: Install Nix
         uses: cachix/install-nix-action@v31.9.0
+        with:
+          extra_nix_config: "extra-platforms = aarch64-linux"
       - name: Build the image
         run: nix develop --command just build-image
