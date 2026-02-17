@@ -12,5 +12,6 @@
       enable = true;
       package = pkgs.nixfmt-rfc-style;
     };
+    deadnix.enable = true;
   };
 }
