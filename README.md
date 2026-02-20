@@ -76,12 +76,14 @@ You can use tools like [Belana Etcher](https://etcher.balena.io/), [rpi-imager](
 > Replace /dev/sdX with your actual SD card device.
 
 If you use `dd`, the compressed image will need to be decompressed first:
+
 ```shell
 cp ./result/sd-nixos-image-sd-card-*.zst ./image.img.zst
 zstd ./image.img.zst --decompress
 ```
 
 Afterwards, `dd` can be used to flash the image onto your SD card.
+
 ```shell
 sudo dd if=./image.img of=/dev/sdX bs=4M status=progress conv=fsync
 ```
