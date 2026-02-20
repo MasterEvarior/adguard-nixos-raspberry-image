@@ -37,6 +37,7 @@
           just
           coreutils # provides dd
           curl
+          zstd
 
           # Releases
           git-cliff
