@@ -27,6 +27,9 @@ in
     openssh.authorizedKeys.keys = [ imageConfig.user.sshKey ];
   };
 
+  # Disable password requirement for user if not password was set
+  security.sudo.wheelNeedsPassword = if initialPassword == null then false else true;
+
   # Networking
   networking = {
     hostName = imageConfig.machine.hostname;
