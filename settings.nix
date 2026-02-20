@@ -10,6 +10,14 @@
         url = "https://adaway.org/hosts.txt";
       }
     ];
+    blockedServices = [
+      "facebook"
+      "betano"
+      "betfair"
+      "blaze"
+      "betway"
+      "shein"
+    ];
   };
 
   machine = {

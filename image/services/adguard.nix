@@ -5,6 +5,10 @@ let
     id = index;
     enabled = true;
   }) imageConfig.adguard.filters;
+  isNotEmpty = s: s != null && (lib.trim s) != "";
+  processedBlockedServices = map lib.toLower (
+    builtins.filter isNotEmpty imageConfig.adguard.blockedServices
+  );
 in
 {
   services.adguardhome = {
@@ -23,6 +27,7 @@ in
       dhcp.enabled = false;
       anonymize_client_ip = true;
       filters = processedFilters;
+      filtering.blocked_services.ids = processedBlockedServices;
     };
   };
 

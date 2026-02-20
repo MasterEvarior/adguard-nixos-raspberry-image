@@ -42,6 +42,7 @@ The entire image is configured using the `settings.nix` file. You can copy the e
 - `user.ssh_key`: Required. Your public SSH key (e.g. contents of `~/.ssh/id_ed25519.pub`)
 - `adguard.filters.<entry>.name`: Display name in AdGuard
 - `adguard.filters.<entry>.url`: The URL to the hosts or blocklist file
+- `adguard.blockedServices`: List of services to enable on the "Filters -> Blocked Services" page
 
 You can define multiple blocklists. These are downloaded by AdGuard on the first boot.The AdGuard configuration is mutable, so it can be changed after the deployment via the GUI.
 
