@@ -68,7 +68,7 @@ This will produce a `.img` file in `result/sd-image`.
 
 ### 2. Flash to SD Card
 
-You can use tools like Belana Etcher, rpi-imager or standard dd:
+You can use tools like [Belana Etcher](https://etcher.balena.io/), [rpi-imager](https://github.com/raspberrypi/rpi-imager/) or standard `dd`:
 
 > [!CAUTION]\
 > Be CAREFUL with dd. It can destroy your entire installation.\
