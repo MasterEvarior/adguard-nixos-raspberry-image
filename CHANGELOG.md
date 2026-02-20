@@ -1,3 +1,24 @@
+## [0.2.0] - 2026-02-20
+
+### 🚀 Features
+
+- Remove compression from .img file
+- Readd image compression
+- Enable support for blocked services
+
+### 🐛 Bug Fixes
+
+- Allow passwordless user to use sudo
+
+### 🚜 Refactor
+
+- Remove dead code
+
+### 📚 Documentation
+
+- Add links to tools
+- Add note about image decompression
+
 ## [0.1.1] - 2026-02-17
 
 ### ⚙️ Miscellaneous Tasks
