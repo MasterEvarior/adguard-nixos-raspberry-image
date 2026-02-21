@@ -28,6 +28,10 @@ in
       anonymize_client_ip = true;
       filters = processedFilters;
       filtering.blocked_services.ids = processedBlockedServices;
+      dns = {
+        upstream_dns = imageConfig.adguard.dns.upstreams;
+        bootstrap_dns = imageConfig.adguard.dns.bootstraps;
+      };
     };
   };
 

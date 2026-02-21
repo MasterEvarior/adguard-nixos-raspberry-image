@@ -1,5 +1,16 @@
 {
   adguard = {
+    dns = {
+      upstreams = [
+        "https://dns.mullvad.net/dns-query"
+        "https://unfiltered.adguard-dns.com/dns-query"
+        "https://dns.switch.ch/dns-query"
+      ];
+      bootstraps = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+    };
     filters = [
       {
         name = "URL House";
