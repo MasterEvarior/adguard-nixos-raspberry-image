@@ -3,9 +3,6 @@
   imageConfig,
   ...
 }:
-let
-  initialPassword = if imageConfig.user.noPassword then null else imageConfig.user.initialPassword;
-in
 {
   imports = [
     ./services
@@ -19,16 +16,6 @@ in
   environment.systemPackages = with pkgs; [
     micro
   ];
-
-  users.users.${imageConfig.user.username} = {
-    inherit initialPassword;
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [ imageConfig.user.sshKey ];
-  };
-
-  # Disable password requirement for user if not password was set
-  security.sudo.wheelNeedsPassword = if initialPassword == null then false else true;
 
   # Networking
   networking = {
