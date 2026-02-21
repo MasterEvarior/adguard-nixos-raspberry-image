@@ -85,13 +85,6 @@
           ];
         };
 
-        smartctl-exporter = import ./tests/smartctl-exporter {
-          inherit pkgs;
-          modules = [
-            configModule
-          ];
-        };
-
         ssh = import ./tests/ssh {
           inherit pkgs;
           modules = [

@@ -16,6 +16,5 @@ in
     (mkForward 2222 22) # SSH
     (mkForward 8080 80) # AdGuard
     (mkSameForward 9100) # Node Exporter
-    (mkSameForward 9633) # Smartctl Exporter
   ];
 }
