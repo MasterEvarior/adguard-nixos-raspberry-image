@@ -2,7 +2,7 @@
 
 A custom, reproducible NixOS image builder for Raspberry Pi (AArch64) pre-configured with AdGuard Home, Prometheus Node Exporter and SSH.
 
-This project uses **Nix Flakes** and **NixOS Generators** to create ready-to-flash SD card images defined entirely by code and a simple `.nix` configuration file.
+This project uses **Nix Flakes** to create ready-to-flash SD card images defined entirely by code and some `.nix` files.
 
 ## Features & Services
 
@@ -101,7 +101,7 @@ This compiles the configuration for x86_64 and boots it in QEMU.
 just run-vm
 ```
 
-Port Forwarding: When running in the VM, ports are mapped to your host machine:
+Port Forwarding: When running in the VM, ports are mapped to the host machine:
 
 - AdGuard Web: https://www.google.com/search?q=http://127.0.0.1:8080
 - Node Exporter: https://www.google.com/search?q=http://127.0.0.1:9100
@@ -130,6 +130,7 @@ just test-all
 just test adguard
 just test ssh
 just test node-exporter
+just test ...
 ```
 
 ### Linting
@@ -153,6 +154,14 @@ This will:
 - Update the `flake.lock` file
 - Run all tests
 - Create a new commit if the tests where successful
+
+To release a new version, simply run this command:
+
+```shell
+just release
+```
+
+This will create a new commit, with an updated `CHANGELOG.md`.
 
 ## References
 
