@@ -9,6 +9,18 @@
         name = "AdAway Default Blocklist";
         url = "https://adaway.org/hosts.txt";
       }
+      {
+        name = "Abuse.ch";
+        url = "https://urlhaus.abuse.ch/downloads/hostfile/";
+      }
+      {
+        name = "The Big List of Hacked Malware Web Sites";
+        url = "https://raw.githubusercontent.com/mitchellkrogza/The-Big-List-of-Hacked-Malware-Web-Sites/master/hosts";
+      }
+      {
+        name = "AdGuard MobileFilter";
+        url = "https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/MobileFilter/sections/specific_app.txt";
+      }
     ];
     blockedServices = [
       "facebook"
