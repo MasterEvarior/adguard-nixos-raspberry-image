@@ -4,6 +4,10 @@
     enable = true;
     port = 9100;
     openFirewall = true;
+    enabledCollectors = [
+      "diskstats"
+      "filesystem"
+    ];
     disabledCollectors = [
       "nfs"
       "nfsd"
