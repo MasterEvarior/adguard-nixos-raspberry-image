@@ -1,3 +1,16 @@
+## [1.0.0] - 2026-02-21
+
+### 🚀 Features
+
+- Enable diskstats and filesystem collectors
+- Add possibility add bootstrap and upstream DNS servers
+- Add assertions for adguard configuration
+- Add assertions for user settings
+
+### 📚 Documentation
+
+- Add documentation for new settings
+
 ## [0.3.0] - 2026-02-21
 
 ### 🚀 Features
