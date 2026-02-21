@@ -46,7 +46,7 @@ The entire image is configured using the `settings.nix` file. You can copy the e
 - `adguard.dns.upstreams`: List of upstream DNS endpoints to use, needs to be a valid URL
 - `adguard.dns.bootstraps`: List of IP addresses to initially resolve the upstream DNS endpoints
 
-You can define multiple blocklists. These are downloaded by AdGuard on the first boot.The AdGuard configuration is mutable, so it can be changed after the deployment via the GUI.
+You can define multiple blocklists. These are downloaded by AdGuard on the first boot. The AdGuard configuration is mutable, so it can be changed after the deployment via the GUI.
 
 ## Usage & Building
 
