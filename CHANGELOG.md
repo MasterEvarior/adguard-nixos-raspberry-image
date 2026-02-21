@@ -1,3 +1,19 @@
+## [0.3.0] - 2026-02-21
+
+### 🚀 Features
+
+- Update default settings
+
+### 🧪 Testing
+
+- Add test for blocked services
+
+### ⚙️ Miscellaneous Tasks
+
+- Format files
+- Add action to automatically create a release on a new tag
+- Run linter
+
 ## [0.2.0] - 2026-02-20
 
 ### 🚀 Features
