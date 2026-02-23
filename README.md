@@ -67,7 +67,7 @@ To build the actual `.img` file for a Raspberry Pi (AArch64), run:
 just build-image
 ```
 
-This will produce a `.img` file in `result/sd-image`.
+This will produce a `.img.zst` file in `result/sd-image`, which is a compressed `.img` file.
 
 ### 2. Flash to SD Card
 
