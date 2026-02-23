@@ -45,6 +45,7 @@ The entire image is configured using the `settings.nix` file. You can copy the e
 - `adguard.blockedServices`: List of services to enable on the "Filters -> Blocked Services" page
 - `adguard.dns.upstreams`: List of upstream DNS endpoints to use, needs to be a valid URL
 - `adguard.dns.bootstraps`: List of IP addresses to initially resolve the upstream DNS endpoints
+- `adguard.dns.upstreamMode`: Mode to use for the upstream DNS resolvers, can be `load_balance`, `parallel` or ``fastest_addr`.
 
 You can define multiple blocklists. These are downloaded by AdGuard on the first boot. The AdGuard configuration is mutable, so it can be changed after the deployment via the GUI.
 

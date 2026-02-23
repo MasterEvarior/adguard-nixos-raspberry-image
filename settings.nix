@@ -10,6 +10,7 @@
         "1.1.1.1"
         "8.8.8.8"
       ];
+      upstreamMode = "load_balance";
     };
     filters = [
       {
