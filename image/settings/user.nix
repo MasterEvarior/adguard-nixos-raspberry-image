@@ -1,4 +1,8 @@
-{ lib, imageConfig, ... }:
+{
+  imageConfig,
+  assertionLib,
+  ...
+}:
 let
   # Config Aliases
   initialPassword = if imageConfig.user.noPassword then null else imageConfig.user.initialPassword;
@@ -6,7 +10,7 @@ let
   sshKey = imageConfig.user.sshKey;
 
   # Validation helpers
-  isNotBlank = s: s != null && (lib.trim s) != "";
+  inherit (assertionLib) isNotBlank;
 in
 {
   assertions = [

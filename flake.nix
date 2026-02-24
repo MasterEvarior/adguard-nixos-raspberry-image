@@ -18,7 +18,10 @@
       pkgs = nixpkgs.legacyPackages.${system};
       treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
       configModule = {
-        _module.args.imageConfig = (import ./settings.nix);
+        _module.args = {
+          imageConfig = (import ./settings.nix);
+          assertionLib = import ./lib/assertions.nix { inherit lib; };
+        };
       };
       baseModules = [
         configModule
