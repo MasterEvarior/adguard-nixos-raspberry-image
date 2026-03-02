@@ -7,6 +7,7 @@
 let
   # Config Aliases
   upstreams = imageConfig.adguard.dns.upstreams;
+  mode = imageConfig.adguard.dns.upstreamMode;
   bootstraps = imageConfig.adguard.dns.bootstraps;
   blockedServices = imageConfig.adguard.blockedServices;
   filters = imageConfig.adguard.filters;
@@ -18,6 +19,13 @@ let
     isNotBlank
     isNotEmpty
     ;
+  isValidMode =
+    m:
+    lib.assertOneOf "upstreamMode" m [
+      "load_balance"
+      "parallel"
+      "fastest_addr"
+    ];
 
   processedFilters = lib.imap1 (index: value: {
     inherit (value) name url;
@@ -51,6 +59,14 @@ in
     {
       assertion = isNotEmpty bootstraps;
       message = "Error: At least one bootstrap DNS needs to be defined";
+    }
+    {
+      assertion = isNotBlank mode;
+      message = "Error: A mode for the upstream DNS needs to be specified";
+    }
+    {
+      assertion = isValidMode mode;
+      message = "Error: A the upstream DNS mode needs to be one of the valid specified choices";
     }
   ];
 
