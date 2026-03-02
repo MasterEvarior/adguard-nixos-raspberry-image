@@ -1,3 +1,15 @@
+## [1.1.0] - 2026-02-23
+
+### 🚀 Features
+
+- Add ability to specify upstream DNS mode
+
+### 📚 Documentation
+
+- Improve README.md
+- Fix typo
+- Clarify generated image format
+
 ## [1.0.0] - 2026-02-21
 
 ### 🚀 Features
