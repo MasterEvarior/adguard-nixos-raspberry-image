@@ -18,14 +18,8 @@ let
     isIp
     isNotBlank
     isNotEmpty
+    isValidMode
     ;
-  isValidMode =
-    m:
-    lib.assertOneOf "upstreamMode" m [
-      "load_balance"
-      "parallel"
-      "fastest_addr"
-    ];
 
   processedFilters = lib.imap1 (index: value: {
     inherit (value) name url;

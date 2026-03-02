@@ -7,4 +7,11 @@ rec {
   isIp = s: isIPv4 s || isIPv6 s;
   isNotBlank = s: s != null && (lib.trim s) != "";
   isNotEmpty = l: builtins.length l != 0;
+  isValidMode =
+    m:
+    lib.assertOneOf "upstreamMode" m [
+      "load_balance"
+      "parallel"
+      "fastest_addr"
+    ];
 }
