@@ -104,8 +104,8 @@ just run-vm
 
 Port Forwarding: When running in the VM, ports are mapped to the host machine:
 
-- AdGuard Web: https://www.google.com/search?q=http://127.0.0.1:8080
-- Node Exporter: https://www.google.com/search?q=http://127.0.0.1:9100
+- AdGuard Web: http://127.0.0.1:8080
+- Node Exporter: http://127.0.0.1:9100
 - SSH: `ssh -p 2222 <user>@127.0.0.1`
 
 The port-forwarding can be configured in the `port-forwarding.nix` file.
