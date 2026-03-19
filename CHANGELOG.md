@@ -1,3 +1,19 @@
+## [1.1.1] - 2026-03-19
+
+### 🚜 Refactor
+
+- Move assertions into a lib file
+- Move isValidMode to assertions helper
+
+### 📚 Documentation
+
+- Fix typo
+- Fix links
+
+### ⚙️ Miscellaneous Tasks
+
+- Merge branch
+
 ## [1.1.0] - 2026-02-23
 
 ### 🚀 Features
