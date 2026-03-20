@@ -9,6 +9,7 @@ let
   dnsPort = imageConfig.adguard.dns.port;
   upstreams = imageConfig.adguard.dns.upstreams;
   mode = imageConfig.adguard.dns.upstreamMode;
+  statistics = imageConfig.adguard.statistics;
   bootstraps = imageConfig.adguard.dns.bootstraps;
   blockedServices = imageConfig.adguard.blockedServices;
   filters = imageConfig.adguard.filters;
@@ -21,6 +22,7 @@ let
     isNotEmpty
     isValidMode
     isPortNumber
+    isValidTimespan
     ;
 
   processedFilters = lib.imap1 (index: value: {
@@ -68,6 +70,14 @@ in
       assertion = isPortNumber dnsPort;
       message = "Error: The DNS port needs to be a valid port number";
     }
+    {
+      assertion = builtins.isBool statistics.enable;
+      message = "Error: statistics.enable needs to be a boolean value (true/false)";
+    }
+    {
+      assertion = isValidTimespan statistics.interval;
+      message = "Error: statistics.interval needs to be a valid timespan in hours that lasts between one hour and a year";
+    }
   ];
 
   services.adguardhome = {
@@ -82,7 +92,10 @@ in
       theme = "auto";
       users = [ ];
       querylog.enabled = false;
-      statistics.enabled = true;
+      statistics = {
+        enabled = statistics.enable;
+        interval = statistics.interval;
+      };
       dhcp.enabled = false;
       anonymize_client_ip = true;
       filters = processedFilters;

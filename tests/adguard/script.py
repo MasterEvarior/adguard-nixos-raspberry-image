@@ -44,6 +44,26 @@ with subtest("AdGuard Home has blocked specified services"):
                 f"Service '{name}' not found in AdGuard. Found: {service_names}"
             )
 
+
+with subtest("AdGuard Home has setup statistics correctly"):
+    response = server.succeed(
+        "curl -s http://127.0.0.1:80/control/stats/config"
+    ).strip()
+
+    data = json.loads(response)
+
+    enabled = data.get("enabled")
+    if enabled:
+        server.log("Verified that statistics are enabled")
+    else:
+        server.fail("Statistics needs to be enabled")
+
+    interval = data.get("interval")
+    if interval == 604800000:
+        server.log("Verified that statistics interval is exactly one week")
+    else:
+        server.fail("Statistics interval needs to be exactly a week")
+
 with subtest("AdGuard Home is reachable from client"):
     client.succeed(
         "curl --fail http://server:80 | grep -q '<title>AdGuard Home</title>'"

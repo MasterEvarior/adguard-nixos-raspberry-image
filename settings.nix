@@ -13,6 +13,10 @@
       ];
       upstreamMode = "load_balance";
     };
+    statistics = {
+      enable = true;
+      interval = "168h"; # 1 Week
+    };
     filters = [
       {
         name = "URL House";

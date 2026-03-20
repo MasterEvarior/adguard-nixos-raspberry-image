@@ -46,7 +46,9 @@ The entire image is configured using the `settings.nix` file. You can copy the e
 - `adguard.dns.port`: Port on which the DNS server should listen (the port is also unblocked from the firewall for both UDP and TCP)
 - `adguard.dns.upstreams`: List of upstream DNS endpoints to use, needs to be a valid URL
 - `adguard.dns.bootstraps`: List of IP addresses to initially resolve the upstream DNS endpoints
-- `adguard.dns.upstreamMode`: Mode to use for the upstream DNS resolvers, can be `load_balance`, `parallel` or `fastest_addr`.
+- `adguard.dns.upstreamMode`: Mode to use for the upstream DNS resolvers, can be `load_balance`, `parallel` or `fastest_addr`
+- `adguard.statistics.enable`: Wether or not to enable the statistics
+- `adguard.statistics.interval`: How long the interval should be kept, a string in hours with at least one hour to max one year
 
 You can define multiple blocklists. These are downloaded by AdGuard on the first boot. The AdGuard configuration is mutable, so it can be changed after the deployment via the GUI.
 

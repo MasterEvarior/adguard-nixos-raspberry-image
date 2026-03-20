@@ -15,4 +15,11 @@ rec {
       "parallel"
       "fastest_addr"
     ];
+  isValidTimespan =
+    s:
+    let
+      m = builtins.match "^([0-9]{1,4})h$" s;
+      hours = lib.toInt (builtins.head m);
+    in
+    isNotBlank s && m != null && hours > 0 && hours <= 8760;
 }
