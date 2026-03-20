@@ -76,6 +76,6 @@ test-all:
 
 [doc('Run a specific test')]
 [group('test')]
-test name arch="x86_64-linux":
-	@echo "Running test {{name}} for {{arch}}"
-	nix run .#checks.{{arch}}.{{name}}.driver
+test name driver_flags="" arch="x86_64-linux":
+	@echo "Running test {{name}} for {{arch}}" 
+	nix run .#checks.{{arch}}.{{name}}.driver -- {{driver_flags}}
