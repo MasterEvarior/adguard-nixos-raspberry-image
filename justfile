@@ -4,7 +4,7 @@ default:
 
 [doc('Start an interactive VM to debug and test')]
 [group('run')]
-run-vm:
+run-vm: clean
 	QEMU_OPTS="-snapshot" nix run .#test-vm
 
 [doc('Connect to the interactive debug/test VM via SSH')]
