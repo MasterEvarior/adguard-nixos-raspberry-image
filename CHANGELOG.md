@@ -1,3 +1,19 @@
+## [1.2.0] - 2026-03-20
+
+### 🚀 Features
+
+- Add ability to configure statistics
+- Add ability to specifiy users for web interface
+
+### 🐛 Bug Fixes
+
+- Make DNS port accessible through the firewall
+
+### ⚙️ Miscellaneous Tasks
+
+- Automatically run clean before starting a debug vm
+- Add ability to execute tests interactively
+
 ## [1.1.1] - 2026-03-19
 
 ### 🚜 Refactor
