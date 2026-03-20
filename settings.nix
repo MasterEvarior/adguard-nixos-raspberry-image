@@ -1,5 +1,11 @@
 {
   adguard = {
+    users = [
+      {
+        name = "Admin";
+        password = "$2b$05$8yt8jbhyQ6t0sDn8KUmTmuEi9u5kd10zaHpD7WK8U1wvZmCLMptO."; # password123
+      }
+    ];
     dns = {
       port = 53;
       upstreams = [

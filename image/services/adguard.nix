@@ -13,6 +13,7 @@ let
   bootstraps = imageConfig.adguard.dns.bootstraps;
   blockedServices = imageConfig.adguard.blockedServices;
   filters = imageConfig.adguard.filters;
+  users = imageConfig.adguard.users;
 
   # Validation helpers
   inherit (assertionLib)
@@ -23,6 +24,7 @@ let
     isValidMode
     isPortNumber
     isValidTimespan
+    areAllUsersValid
     ;
 
   processedFilters = lib.imap1 (index: value: {
@@ -31,6 +33,7 @@ let
     enabled = true;
   }) filters;
   processedBlockedServices = map lib.toLower (builtins.filter isNotBlank blockedServices);
+  processedUsers = if users != null then users else [ ];
 in
 {
   assertions = [
@@ -78,6 +81,10 @@ in
       assertion = isValidTimespan statistics.interval;
       message = "Error: statistics.interval needs to be a valid timespan in hours that lasts between one hour and a year";
     }
+    {
+      assertion = (areAllUsersValid processedUsers);
+      message = "Error: some of your users are invalid, see the documentation for more information about how a user should be structured";
+    }
   ];
 
   services.adguardhome = {
@@ -90,7 +97,7 @@ in
 
     settings = {
       theme = "auto";
-      users = [ ];
+      users = processedUsers;
       querylog.enabled = false;
       statistics = {
         enabled = statistics.enable;

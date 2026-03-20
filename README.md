@@ -49,8 +49,12 @@ The entire image is configured using the `settings.nix` file. You can copy the e
 - `adguard.dns.upstreamMode`: Mode to use for the upstream DNS resolvers, can be `load_balance`, `parallel` or `fastest_addr`
 - `adguard.statistics.enable`: Wether or not to enable the statistics
 - `adguard.statistics.interval`: How long the interval should be kept, a string in hours with at least one hour to max one year
+- `adguard.users.<entry>.name`: Username for AdGuard web interface login
+- `adguard.users.<entry>.password`: bcrypt-encrypted password hash
 
 You can define multiple blocklists. These are downloaded by AdGuard on the first boot. The AdGuard configuration is mutable, so it can be changed after the deployment via the GUI.
+
+The `adguard.users` option defines authentication users for the AdGuard Home web interface. Each user requires a `name` and a `password` (as a bcrypt hash). You can generate a password hash using `just hash-password "your-password"`. Invalid usernames (empty strings) or malformed password hashes will cause a build failure.
 
 ## Usage & Building
 

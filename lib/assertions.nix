@@ -22,4 +22,9 @@ rec {
       hours = lib.toInt (builtins.head m);
     in
     isNotBlank s && m != null && hours > 0 && hours <= 8760;
+  isValidUsername = n: builtins.isString n && isNotBlank n;
+  isValidPassword =
+    p: builtins.isString p && isNotBlank p && builtins.match "\\$2[ayb]\\$[0-9]{1,2}\\$.+" p != null;
+  isValidUser = u: isValidUsername u.name && isValidPassword u.password;
+  areAllUsersValid = ul: builtins.all isValidUser ul;
 }

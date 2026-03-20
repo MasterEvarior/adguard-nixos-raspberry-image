@@ -31,6 +31,11 @@ build-image: clean
     @echo "Building SD Image..."
     nix build .#nixosConfigurations.adguard-pi.config.system.build.sdImage
 
+[doc('Hash password')]
+[group('build')]
+hash-password password:
+    @nix-shell -p mkpasswd --run "mkpasswd -m bcrypt '{{password}}'"
+
 alias c := clean
 [doc('Remove file that stores the state of the VM')]
 [group('maintenance')]

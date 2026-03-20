@@ -41,6 +41,7 @@
           coreutils # provides dd
           curl
           zstd
+          mkpasswd
 
           # Releases
           git-cliff
