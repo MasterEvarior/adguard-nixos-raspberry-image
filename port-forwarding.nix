@@ -10,11 +10,15 @@ let
     };
     guest.port = guestPort;
   };
+  mkForwardUDP = hostPort: guestPort: (mkForward hostPort guestPort) // { proto = "udp"; };
 in
 {
   virtualisation.forwardPorts = [
     (mkForward 2222 22) # SSH
-    (mkForward 8080 80) # AdGuard
     (mkSameForward 9100) # Node Exporter
+
+    (mkForward 8080 80) # AdGuard
+    (mkForwardUDP 5300 53) # DNS (UDP)
+    (mkForward 5300 53) # DNS (TCP)
   ];
 }

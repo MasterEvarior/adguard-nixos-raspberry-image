@@ -1,6 +1,7 @@
 { lib }:
 
 rec {
+  isPortNumber = p: builtins.isInt p && p != null && p >= 1 && p <= 64738;
   isUrl = s: builtins.match "^http(s)?://.+$" s != null;
   isIPv4 = s: builtins.match "^([0-9]{1,3}\\.){3}[0-9]{1,3}$" s != null;
   isIPv6 = s: builtins.match "^[0-9a-fA-F]*:[0-9a-fA-F:]+$" s != null;

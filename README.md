@@ -43,6 +43,7 @@ The entire image is configured using the `settings.nix` file. You can copy the e
 - `adguard.filters.<entry>.name`: Display name in AdGuard
 - `adguard.filters.<entry>.url`: The URL to the hosts or blocklist file
 - `adguard.blockedServices`: List of services to enable on the "Filters -> Blocked Services" page
+- `adguard.dns.port`: Port on which the DNS server should listen (the port is also unblocked from the firewall for both UDP and TCP)
 - `adguard.dns.upstreams`: List of upstream DNS endpoints to use, needs to be a valid URL
 - `adguard.dns.bootstraps`: List of IP addresses to initially resolve the upstream DNS endpoints
 - `adguard.dns.upstreamMode`: Mode to use for the upstream DNS resolvers, can be `load_balance`, `parallel` or `fastest_addr`.

@@ -6,6 +6,7 @@
 }:
 let
   # Config Aliases
+  dnsPort = imageConfig.adguard.dns.port;
   upstreams = imageConfig.adguard.dns.upstreams;
   mode = imageConfig.adguard.dns.upstreamMode;
   bootstraps = imageConfig.adguard.dns.bootstraps;
@@ -19,6 +20,7 @@ let
     isNotBlank
     isNotEmpty
     isValidMode
+    isPortNumber
     ;
 
   processedFilters = lib.imap1 (index: value: {
@@ -62,6 +64,10 @@ in
       assertion = isValidMode mode;
       message = "Error: A the upstream DNS mode needs to be one of the valid specified choices";
     }
+    {
+      assertion = isPortNumber dnsPort;
+      message = "Error: The DNS port needs to be a valid port number";
+    }
   ];
 
   services.adguardhome = {
@@ -82,14 +88,20 @@ in
       filters = processedFilters;
       filtering.blocked_services.ids = processedBlockedServices;
       dns = {
+        bind_hosts = [ "0.0.0.0" ];
+        port = dnsPort;
         upstream_dns = upstreams;
         bootstrap_dns = bootstraps;
       };
     };
   };
 
-  networking.firewall.allowedTCPPorts = [
-    53
-    80
-  ];
+  networking.firewall = {
+    allowedUDPPorts = [
+      dnsPort
+    ];
+    allowedTCPPorts = [
+      dnsPort
+    ];
+  };
 }

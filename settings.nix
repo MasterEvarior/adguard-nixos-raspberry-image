@@ -1,6 +1,7 @@
 {
   adguard = {
     dns = {
+      port = 53;
       upstreams = [
         "https://dns.mullvad.net/dns-query"
         "https://unfiltered.adguard-dns.com/dns-query"

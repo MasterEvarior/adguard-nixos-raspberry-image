@@ -20,13 +20,18 @@ pkgs.testers.runNixOSTest {
         networking.hostName = lib.mkForce "server";
 
         virtualisation.graphics = false;
-        environment.systemPackages = [ pkgs.curlMinimal ];
+        environment.systemPackages = [
+          pkgs.curlMinimal
+        ];
       };
 
     client =
       { pkgs, ... }:
       {
-        environment.systemPackages = [ pkgs.curlMinimal ];
+        environment.systemPackages = [
+          pkgs.curlMinimal
+          pkgs.netcat
+        ];
         virtualisation.graphics = false;
       };
 
