@@ -31,6 +31,13 @@ build-image: clean
     @echo "Building SD Image..."
     nix build .#nixosConfigurations.adguard-pi.config.system.build.sdImage
 
+[doc('Copy and decompress image from ./result')]
+[group('build')]
+prepare-image:
+	@echo "Copying image to current directory..."
+	cp {{justfile_directory()}}/result/sd-image/*.img.zst {{justfile_directory()}}/image.img.zst
+	zstd {{justfile_directory()}}/image.img.zst --decompress
+
 [doc('Hash password')]
 [group('build')]
 hash-password password:
