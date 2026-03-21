@@ -150,8 +150,8 @@ just format
 
 ## Maintenance
 
-
 ### Update
+
 To update the `flake.lock`file, execute the following command:
 
 ```shell
