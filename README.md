@@ -48,7 +48,7 @@ The entire image is configured using the `settings.nix` file. You can copy the e
 - `adguard.dns.bootstraps`: List of IP addresses to initially resolve the upstream DNS endpoints
 - `adguard.dns.upstreamMode`: Mode to use for the upstream DNS resolvers, can be `load_balance`, `parallel` or `fastest_addr`
 - `adguard.statistics.enable`: Wether or not to enable the statistics
-- `adguard.statistics.interval`: How long the interval should be kept, a string in hours with at least one hour to max one year
+- `adguard.statistics.interval`: How long the interval should be kept, a string in hours with at least one hour to at most one year
 - `adguard.users.<entry>.name`: Username for AdGuard web interface login
 - `adguard.users.<entry>.password`: bcrypt-encrypted password hash
 
@@ -63,7 +63,7 @@ Prerequisites
 
 - Nix installed with Flakes enabled
 - Just (optional, but makes commands easier)
-- Direnv (optiona, but makes life easier)
+- Direnv (optional, but makes life easier)
 
 Run `just` to see all available commands.
 
@@ -83,13 +83,12 @@ You can use tools like [Belana Etcher](https://etcher.balena.io/), [rpi-imager](
 
 > [!CAUTION]\
 > Be CAREFUL with dd. It can destroy your entire installation.\
-> Replace /dev/sdX with your actual SD card device.
+> Replace /dev/sdX with your actual SD card device!
 
 If you use `dd`, the compressed image will need to be decompressed first:
 
 ```shell
-cp ./result/sd-nixos-image-sd-card-*.zst ./image.img.zst
-zstd ./image.img.zst --decompress
+just prepare-image
 ```
 
 Afterwards, `dd` can be used to flash the image onto your SD card.
@@ -151,6 +150,8 @@ just format
 
 ## Maintenance
 
+
+### Update
 To update the `flake.lock`file, execute the following command:
 
 ```shell
@@ -162,6 +163,8 @@ This will:
 - Update the `flake.lock` file
 - Run all tests
 - Create a new commit if the tests where successful
+
+### Releases
 
 To release a new version, simply run this command:
 
