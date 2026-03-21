@@ -42,6 +42,9 @@ alias c := clean
 clean:
 	@echo "Removing file that stores the state of the VM"
 	rm -f adguard.qcow2
+	@echo "Removing copied image files"
+	rm -f image.img
+	rm -f image.img.zst
 
 alias u := update
 [doc('Update flake')]
