@@ -17,9 +17,10 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      imageConfig = (import ./settings.nix);
       configModule = {
         _module.args = {
-          imageConfig = (import ./settings.nix);
+          inherit imageConfig;
           assertionLib = import ./lib/assertions.nix { inherit lib; };
         };
       };
@@ -70,7 +71,7 @@
         test-vm = {
           type = "app";
           meta.description = "Start a small VM to make debugging/testing easier";
-          program = "${self.outputs.nixosConfigurations.test-vm.config.system.build.vm}/bin/run-adguard-vm";
+          program = "${self.outputs.nixosConfigurations.test-vm.config.system.build.vm}/bin/run-${imageConfig.machine.hostname}-vm";
         };
       };
 
