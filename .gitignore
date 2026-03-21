@@ -26,3 +26,5 @@ result/*
 result
 
 *.qcow2
+*.img
+*.img.zst
