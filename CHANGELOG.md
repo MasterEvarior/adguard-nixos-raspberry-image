@@ -1,3 +1,19 @@
+## [1.2.1] - 2026-03-21
+
+### 🐛 Bug Fixes
+
+- Test-vm app now uses hostname from configuration
+
+### 🧪 Testing
+
+- Remove users from settings
+
+### ⚙️ Miscellaneous Tasks
+
+- Improve clean command
+- Add build-image output to .gitignore
+- Add command to copy and decompress image
+
 ## [1.2.0] - 2026-03-20
 
 ### 🚀 Features
