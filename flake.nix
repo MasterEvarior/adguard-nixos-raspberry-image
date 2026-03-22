@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "Build an OS image for the Raspberry PI with AdGuard Home pre-installed";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
