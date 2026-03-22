@@ -30,12 +30,6 @@
       ];
     in
     {
-      nixosModules = {
-        adguardhome = (import ./image/services/adguard.nix);
-        ssh = (import ./image/services/ssh.nix);
-        nodeExporter = (import ./image/services/node-exporter.nix);
-      };
-
       devShells.${system}.default = pkgs.mkShellNoCC {
         packages = with pkgs; [
           just
