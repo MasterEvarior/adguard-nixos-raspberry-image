@@ -30,7 +30,6 @@ pkgs.testers.runNixOSTest {
       {
         environment.systemPackages = [
           pkgs.curlMinimal
-          pkgs.netcat
         ];
         virtualisation.graphics = false;
       };
