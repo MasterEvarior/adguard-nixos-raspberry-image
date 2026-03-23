@@ -20,11 +20,12 @@ let
     isUrl
     isIp
     isNotBlank
-    isNotEmpty
     isValidMode
     isPortNumber
     isValidTimespan
     areAllUsersValid
+    mkNotEmpty
+    mkIsBool
     ;
 
   processedFilters = lib.imap1 (index: value: {
@@ -54,14 +55,6 @@ in
       message = "Error: Blocked services cannot be empty";
     }
     {
-      assertion = isNotEmpty upstreams;
-      message = "Error: At least one upstream DNS needs to be defined";
-    }
-    {
-      assertion = isNotEmpty bootstraps;
-      message = "Error: At least one bootstrap DNS needs to be defined";
-    }
-    {
       assertion = isNotBlank mode;
       message = "Error: A mode for the upstream DNS needs to be specified";
     }
@@ -74,10 +67,6 @@ in
       message = "Error: The DNS port needs to be a valid port number";
     }
     {
-      assertion = builtins.isBool statistics.enable;
-      message = "Error: statistics.enable needs to be a boolean value (true/false)";
-    }
-    {
       assertion = isValidTimespan statistics.interval;
       message = "Error: statistics.interval needs to be a valid timespan in hours that lasts between one hour and a year";
     }
@@ -85,6 +74,9 @@ in
       assertion = (areAllUsersValid processedUsers);
       message = "Error: some of your users are invalid, see the documentation for more information about how a user should be structured";
     }
+    (mkIsBool "statistics.enable" statistics.enable)
+    (mkNotEmpty "upstream DNS" upstreams)
+    (mkNotEmpty "bootstrap DNS" bootstraps)
   ];
 
   services.adguardhome = {

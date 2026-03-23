@@ -1,6 +1,8 @@
 { lib }:
 
 rec {
+  # Validations
+
   isPortNumber = p: builtins.isInt p && p != null && p >= 1 && p <= 64738;
   isUrl = s: builtins.match "^http(s)?://.+$" s != null;
   isIPv4 = s: builtins.match "^([0-9]{1,3}\\.){3}[0-9]{1,3}$" s != null;
@@ -27,4 +29,14 @@ rec {
     p: builtins.isString p && isNotBlank p && builtins.match "\\$2[ayb]\\$[0-9]{1,2}\\$.+" p != null;
   isValidUser = u: isValidUsername u.name && isValidPassword u.password;
   areAllUsersValid = ul: builtins.all isValidUser ul;
+
+  # Assertion Shortcuts
+  mkNotEmpty = n: l: {
+    assertion = isNotEmpty l;
+    message = "Error: At least one ${n} needs to be defined";
+  };
+  mkIsBool = n: b: {
+    assertion = builtins.isBool b;
+    message = "Error: ${n} needs to be a boolean value (true/false)";
+  };
 }
