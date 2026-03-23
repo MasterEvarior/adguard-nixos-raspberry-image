@@ -26,6 +26,7 @@ let
     areAllUsersValid
     mkNotEmpty
     mkIsBool
+    mkNotBlank
     ;
 
   processedFilters = lib.imap1 (index: value: {
@@ -55,10 +56,6 @@ in
       message = "Error: Blocked services cannot be empty";
     }
     {
-      assertion = isNotBlank mode;
-      message = "Error: A mode for the upstream DNS needs to be specified";
-    }
-    {
       assertion = isValidMode mode;
       message = "Error: A the upstream DNS mode needs to be one of the valid specified choices";
     }
@@ -74,6 +71,7 @@ in
       assertion = (areAllUsersValid processedUsers);
       message = "Error: some of your users are invalid, see the documentation for more information about how a user should be structured";
     }
+    (mkNotBlank "upstream DNS mode" mode)
     (mkIsBool "statistics.enable" statistics.enable)
     (mkNotEmpty "upstream DNS" upstreams)
     (mkNotEmpty "bootstrap DNS" bootstraps)

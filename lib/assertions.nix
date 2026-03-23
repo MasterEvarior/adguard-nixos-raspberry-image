@@ -39,4 +39,8 @@ rec {
     assertion = builtins.isBool b;
     message = "Error: ${n} needs to be a boolean value (true/false)";
   };
+  mkNotBlank = n: s: {
+    assertion = isNotBlank s;
+    message = "Error: ${n} cannot be blank";
+  };
 }

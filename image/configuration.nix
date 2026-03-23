@@ -1,9 +1,23 @@
 {
   pkgs,
   imageConfig,
+  assertionLib,
   ...
 }:
+let
+  # Config Aliases
+  hostName = imageConfig.machine.hostname;
+
+  # Validation helpers
+  inherit (assertionLib)
+    mkNotBlank
+    ;
+in
 {
+  assertions = [
+    (mkNotBlank "hostname" hostName)
+  ];
+
   imports = [
     ./services
     ./settings
@@ -19,7 +33,7 @@
 
   # Networking
   networking = {
-    hostName = imageConfig.machine.hostname;
+    inherit hostName;
     networkmanager.enable = true;
   };
 

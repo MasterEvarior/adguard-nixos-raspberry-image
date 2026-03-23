@@ -10,14 +10,14 @@ let
   sshKey = imageConfig.user.sshKey;
 
   # Validation helpers
-  inherit (assertionLib) isNotBlank;
+  inherit (assertionLib)
+    isNotBlank
+    mkNotBlank
+    ;
 in
 {
   assertions = [
-    {
-      assertion = isNotBlank username;
-      message = "Error: Username cannot be empty";
-    }
+    (mkNotBlank "username" username)
     {
       assertion = (isNotBlank sshKey) || (isNotBlank initialPassword);
       message = "Error: Either SSH key or initial password needs to be defined";
