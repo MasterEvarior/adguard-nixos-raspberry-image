@@ -1,3 +1,21 @@
+## [1.2.2] - 2026-03-24
+
+### 🚜 Refactor
+
+- Remove unused modules
+- Remove unused pkg
+- Add some more convenience functions to assertion helper
+- Improve assertions
+
+### 📚 Documentation
+
+- Improve README.md
+- Update flake description
+
+### ⚙️ Miscellaneous Tasks
+
+- Run formatter
+
 ## [1.2.1] - 2026-03-21
 
 ### 🐛 Bug Fixes
