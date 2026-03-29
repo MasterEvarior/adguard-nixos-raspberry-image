@@ -44,6 +44,10 @@
         name = "AdGuard MobileFilter";
         url = "https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/MobileFilter/sections/specific_app.txt";
       }
+      {
+        name = "Mobile Ads";
+        url = "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_11_Mobile/filter.txt";
+      }
     ];
     blockedServices = [
       "facebook"
