@@ -2,7 +2,7 @@
   description = "Build an OS image for the Raspberry PI with AdGuard Home pre-installed";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
