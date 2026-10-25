@@ -38,7 +38,7 @@ The entire image is configured using the `settings.nix` file. You can copy the e
 
 - `machine.hostname`: The network hostname for the Pi
 - `user.username`: The name of the primary user account
-- `user.no_password`: Set to true to disable password login entirely (recommended)\`
+- `user.no_password`: Set to true to disable password login entirely (recommended)
 - `user.ssh_key`: Required. Your public SSH key (e.g. contents of `~/.ssh/id_ed25519.pub`)
 - `adguard.filters.<entry>.name`: Display name in AdGuard
 - `adguard.filters.<entry>.url`: The URL to the hosts or blocklist file
