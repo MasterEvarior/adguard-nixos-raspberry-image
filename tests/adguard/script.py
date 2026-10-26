@@ -62,7 +62,9 @@ with subtest("AdGuard Home has setup specified rewrites"):
         if (domain, answer) in rewrites:
             server.log(f"Verified rewrite: {domain} -> {answer}")
         else:
-            server.fail(f"Rewrite '{domain} -> {answer}' not found in AdGuard. Found: {rewrites}")
+            server.fail(
+                f"Rewrite '{domain} -> {answer}' not found in AdGuard. Found: {rewrites}"
+            )
 
 
 with subtest("AdGuard Home has setup statistics correctly"):
