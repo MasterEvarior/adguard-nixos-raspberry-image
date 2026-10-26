@@ -96,10 +96,8 @@ in
     mutableSettings = true;
     openFirewall = true;
 
-    host = "0.0.0.0";
-    port = 80;
-
     settings = {
+      http.address = "0.0.0.0:80";
       theme = "auto";
       users = processedUsers;
       querylog.enabled = false;
