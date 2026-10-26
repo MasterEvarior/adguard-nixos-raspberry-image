@@ -1,3 +1,13 @@
+## [1.4.0] - 2026-10-26
+
+### 🚀 Features
+
+- Add possibility to define rewrites
+
+### 📚 Documentation
+
+- Fix typo
+
 ## [1.3.0] - 2026-07-12
 
 ### 🚀 Features
