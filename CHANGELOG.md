@@ -1,3 +1,17 @@
+## [1.4.1] - 2026-10-26
+
+### 🐛 Bug Fixes
+
+- Migrate old config option
+
+### 🧪 Testing
+
+- Fix timeouts because of sandbox
+
+### ⚙️ Miscellaneous Tasks
+
+- Run formatters
+
 ## [1.4.0] - 2026-10-26
 
 ### 🚀 Features
