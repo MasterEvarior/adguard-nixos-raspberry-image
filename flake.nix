@@ -28,6 +28,9 @@
         configModule
         ./image/configuration.nix
       ];
+      testModules = [
+        ./tests/offline-overwrite.nix
+      ];
     in
     {
       devShells.${system}.default = pkgs.mkShellNoCC {
@@ -74,14 +77,16 @@
           inherit pkgs;
           modules = [
             configModule
-          ];
+          ]
+          ++ testModules;
         };
 
         node-exporter = import ./tests/node-exporter {
           inherit pkgs;
           modules = [
             configModule
-          ];
+          ]
+          ++ testModules;
         };
 
         ssh = import ./tests/ssh {
@@ -89,7 +94,8 @@
           modules = [
             "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
             configModule
-          ];
+          ]
+          ++ testModules;
         };
 
         formatting = treefmtEval.config.build.check self;
