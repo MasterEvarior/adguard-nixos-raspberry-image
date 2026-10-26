@@ -14,6 +14,7 @@ let
   blockedServices = imageConfig.adguard.blockedServices;
   filters = imageConfig.adguard.filters;
   users = imageConfig.adguard.users;
+  rewrites = imageConfig.adguard.rewrites;
 
   # Validation helpers
   inherit (assertionLib)
@@ -36,6 +37,11 @@ let
   }) filters;
   processedBlockedServices = map lib.toLower (builtins.filter isNotBlank blockedServices);
   processedUsers = if users != null then users else [ ];
+  processedRewrites = map (rewrite: {
+    domain = rewrite.from;
+    answer = rewrite.to;
+    enabled = true;
+  }) rewrites;
 in
 {
   assertions = [
@@ -71,6 +77,14 @@ in
       assertion = (areAllUsersValid processedUsers);
       message = "Error: some of your users are invalid, see the documentation for more information about how a user should be structured";
     }
+    {
+      assertion = builtins.all (rewrite: isNotBlank rewrite.from) rewrites;
+      message = "Error: rewrites.from must not be blank";
+    }
+    {
+      assertion = builtins.all (rewrite: isNotBlank rewrite.to) rewrites;
+      message = "Error: rewrites.from must not be blank";
+    }
     (mkNotBlank "upstream DNS mode" mode)
     (mkIsBool "statistics.enable" statistics.enable)
     (mkNotEmpty "upstream DNS" upstreams)
@@ -96,7 +110,10 @@ in
       dhcp.enabled = false;
       anonymize_client_ip = true;
       filters = processedFilters;
-      filtering.blocked_services.ids = processedBlockedServices;
+      filtering = {
+        rewrites = processedRewrites;
+        blocked_services.ids = processedBlockedServices;
+      };
       dns = {
         bind_hosts = [ "0.0.0.0" ];
         port = dnsPort;

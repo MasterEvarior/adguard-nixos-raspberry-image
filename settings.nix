@@ -23,6 +23,16 @@
       enable = true;
       interval = "168h"; # 1 Week
     };
+    rewrites = [
+      {
+        from = "*.example.com";
+        to = "192.168.1.1";
+      }
+      {
+        from = "some.example.com";
+        to = "A";
+      }
+    ];
     filters = [
       {
         name = "URL House";

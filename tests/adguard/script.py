@@ -45,6 +45,26 @@ with subtest("AdGuard Home has blocked specified services"):
             )
 
 
+with subtest("AdGuard Home has setup specified rewrites"):
+    response = server.succeed(
+        "curl -s http://127.0.0.1:80/control/rewrite/list"
+    ).strip()
+
+    data = json.loads(response)
+
+    rewrites = [(r["domain"], r["answer"]) for r in data]
+
+    expected_rewrites = [
+        ("*.example.com", "192.168.1.1"),
+        ("some.example.com", "A"),
+    ]
+    for domain, answer in expected_rewrites:
+        if (domain, answer) in rewrites:
+            server.log(f"Verified rewrite: {domain} -> {answer}")
+        else:
+            server.fail(f"Rewrite '{domain} -> {answer}' not found in AdGuard. Found: {rewrites}")
+
+
 with subtest("AdGuard Home has setup statistics correctly"):
     response = server.succeed(
         "curl -s http://127.0.0.1:80/control/stats/config"

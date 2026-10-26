@@ -42,6 +42,8 @@ The entire image is configured using the `settings.nix` file. You can copy the e
 - `user.ssh_key`: Required. Your public SSH key (e.g. contents of `~/.ssh/id_ed25519.pub`)
 - `adguard.filters.<entry>.name`: Display name in AdGuard
 - `adguard.filters.<entry>.url`: The URL to the hosts or blocklist file
+- `adguard.rewrites.<entry>.from`: The domain (or domain pattern) to redirect
+- `adguard.rewrites.<entry>.to`: The IP/domain you want to redirect to (can also be A or AAAA as a special value)
 - `adguard.blockedServices`: List of services to enable on the "Filters -> Blocked Services" page
 - `adguard.dns.port`: Port on which the DNS server should listen (the port is also unblocked from the firewall for both UDP and TCP)
 - `adguard.dns.upstreams`: List of upstream DNS endpoints to use, needs to be a valid URL
